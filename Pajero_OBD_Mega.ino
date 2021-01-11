@@ -1,6 +1,11 @@
 /*************************************************************************
 
-OBD Data Display for Gen 4 Pajeros
+This is an Arduino based OBD reader solution that incorporates standard PID commands AND custom PID commands for non standard data.
+
+This code and library is based on the Freematics OBD reader and libraries written by Stanley Huang - all copyright on the libraries etc... to him - his GIT is here: https://github.com/stanleyhuangyc/ArduinoOBD
+
+Using this library and working through the AT Command sets, we are able to call custom PID commands once we know what we are looking for.
+
 
 *************************************************************************/
 
