@@ -21,7 +21,7 @@ To get this up and running you will need....
 * Freematics library - https://github.com/stanleyhuangyc/ArduinoOBD
 * Adafruit GFX library - https://learn.adafruit.com/adafruit-gfx-graphics-library
 * Adafruit BUSIO (required for GFX library but not called directly, later IDE versions should self install this)
-* Adafruit OLED SSSD1306 library - https://github.com/adafruit/Adafruit_SSD1306
+* Adafruit OLED SSD1306 library - https://github.com/adafruit/Adafruit_SSD1306
 
 
 <BR>
