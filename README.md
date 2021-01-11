@@ -34,4 +34,4 @@ TBA - will be uploaded once finished.
   
 ## Comments about current version
 
-This code is planned to be the final version of my prototype, has NOT been tested yet, particularly the buzzer and LED configs. They should work but is untested. Will updated with tested.
+This code is planned to be the final version of my prototype, it has NOT been tested yet, particularly the buzzer and LED configs. I will update once I have finalised and tested.
