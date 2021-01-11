@@ -8,7 +8,7 @@ To get this up and running you will need....
 ## Hardware
 
 * Freematics OBDUART reader - https://freematics.com/store/index.php?route=product/product&path=20&product_id=30 - Note I'm using V1 but V2.1 should work fine as well.<BR>
-* 0.91" 128x32 OLED with 2IC connection - something like this - https://wiki.52pi.com/index.php/0.91_Inch_OLED_Module_SKU:_S-0006 or https://tinyurl.com/y6jb9kw3<BR>
+* 0.91" 128x32 OLED with I2C connection - something like this - https://wiki.52pi.com/index.php/0.91_Inch_OLED_Module_SKU:_S-0006 or https://tinyurl.com/y6jb9kw3<BR>
 * Arduino MEGA 2560 - note that the libraries are fairly heavy which is why I've gone with the Mega at this stage. You can slim this down by dropping out the Adafruit GFX functions, LED/Buzzer alarms and library and it will fit on an UNO - only just though.<BR>
 * 2 x 3MM LEDs with resistors<BR>
 * Arduino Buzzer Module (2pin version or 3 pin will work if you ground it seperately)
