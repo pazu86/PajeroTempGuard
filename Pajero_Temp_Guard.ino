@@ -94,18 +94,18 @@ void setup()
   pinMode(8, OUTPUT); //Positive
   pinMode(9, OUTPUT); //Negative
   digitalWrite(9, LOW); //Pull Negative Low to GND
-  //digitalWrite(8, HIGH); //Turns on LED (Debug)
+  //digitalWrite(8, HIGH); //Turn on LED (Debug)
 
   //AT Temp LED
   pinMode(10, OUTPUT); //Positive
   pinMode(11, OUTPUT); //Negative
   digitalWrite(11, LOW); //Pull Negative Low to GND
-  //digitalWrite(10, HIGH); //Turns on LED (Debug)
+  //digitalWrite(10, HIGH); //Turn on LED (Debug)
 
   //Buzzer
   pinMode(6, OUTPUT); //Positive
-  pinMode(7, OUTPUT); //Negative
-  digitalWrite(7, LOW); //Pull Negative Low to GND
+  pinMode(4, OUTPUT); //Negative
+  digitalWrite(4, LOW); //Pull Negative Low to GND
 
   //Set rotation for LCD 180 degrees
   display.setRotation(2);
@@ -139,8 +139,18 @@ void setup()
   //Start OBD Connection
   obd.begin();
 
-  digitalWrite(8, HIGH); //Turns on ENG Warning LED
-  digitalWrite(10, HIGH); //Turns on AT Warning LED
+  //Beep beep
+  digitalWrite(6, HIGH); //Turn Buzzer - ON
+  delay(100);
+  digitalWrite(6, LOW); //Turn Buzzer - OFF
+  delay(100);
+  digitalWrite(6, HIGH); //Turn Buzzer - ON
+  delay(100);
+  digitalWrite(6, LOW); //Turn Buzzer - OFF
+
+  //Turn LEDs on as part of start up
+  digitalWrite(8, HIGH); //Turn ENG Warning LED - ON
+  digitalWrite(10, HIGH); //Turn AT Warning LED - ON
 
   display.clearDisplay();
   display.setCursor(0, 6);            // Start at top-left corner
@@ -160,9 +170,12 @@ void setup()
   display.display();
   delay(1000);
 
-
-  digitalWrite(8, LOW); //Turns off ENG Warning LED
-  digitalWrite(10, LOW); //Turns off AT Warning LED
+  //Once connected turn off LED lights and beep once
+  digitalWrite(6, HIGH); //Turn Buzzer - ON
+  delay(100);
+  digitalWrite(6, LOW); //Turn Buzzer - OFF
+  digitalWrite(8, LOW); //Turn ENG Warning LED - OFF
+  digitalWrite(10, LOW); //Turn AT Warning LED - OFF
 
 
 
@@ -220,7 +233,7 @@ void RunATcommands()
   //2102 - Call Trans Temp PID
 
   //For other AT Commands and to understand the commands being made - see Spec sheet here: https://www.elmelectronics.com/wp-content/uploads/2016/07/ELM327DS.pdf
-  
+
   static const char cmds[][9] = {"ATZ\r", "ATH1\r", "ATS1\r", "0100\r", "ATSH7E1\r", "2102\r"};
   char buf[128];
 
@@ -244,14 +257,14 @@ void RunATcommands()
       //7E9100C6102FF059A00
       //7E92100555500FF85FF
       //
-      // The AT Temp is buried in this code - specifically 7E92100  55   5500FF85FF these two characters (55). 
-      //They are written in Hexadecimal - so in the example here, 55 in hexadecimal. 
+      // The AT Temp is buried in this code - specifically 7E92100  55   5500FF85FF these two characters (55).
+      //They are written in Hexadecimal - so in the example here, 55 in hexadecimal.
       //If you convert that to Decimal, it is 85. Apply the equation (F-50), 85 - 50 = 35 Degrees)
       //
       //You have to treat the two lines as a single line and access the relevant character numbers (39 and 40)
       //
       //Putting that into practice you get the following
-      
+
       //Check digit to confirm correct response
       if (buf[4] == '1') {
         //Debug - print full Buffer
@@ -290,22 +303,43 @@ void RunATcommands()
 
         //Warning LED Check
         if (output4 > AT_Temp_Warn) {
-          digitalWrite(10, HIGH); //Turns on LED
+          digitalWrite(10, HIGH); //Turn on LED
 
 
           //Alarm Buzzer Check
           if (output4 > AT_Temp_Alarm) {
-            digitalWrite(6, HIGH); //Turn Buzzer On
+
+            //5 quick beeps followed by 3 second pause to let temp drop
+            digitalWrite(6, HIGH); //Turn Buzzer - ON
+            delay(100);
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
+            delay(100);
+            digitalWrite(6, HIGH); //Turn Buzzer - ON
+            delay(100);
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
+            delay(100);
+            digitalWrite(6, HIGH); //Turn Buzzer - ON
+            delay(100);
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
+            delay(100);
+            digitalWrite(6, HIGH); //Turn Buzzer - ON
+            delay(100);
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
+            delay(100);
+            digitalWrite(6, HIGH); //Turn Buzzer - ON
+            delay(100);
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
+            delay(3000);
           }
           else {
-            digitalWrite(6, LOW); //Turn Buzzer On
+            digitalWrite(6, LOW); //Turn Buzzer - OFF
           }
 
         }
         else {
           //Turn Warning and buzzer off
-          digitalWrite(10, LOW); //Turns off LED
-          digitalWrite(6, LOW); //Turn Buzzer On
+          digitalWrite(10, LOW); //Turn off LED
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
         }
 
 
@@ -367,22 +401,43 @@ void showData(byte pid, int value)
 
       //Warning LED Check
       if (value > ENG_Temp_Warn) {
-        digitalWrite(8, HIGH); //Turns on LED
+        digitalWrite(8, HIGH); //Turn on LED
 
 
         //Alarm Buzzer Check
         if (value > ENG_Temp_Alarm) {
-          digitalWrite(6, HIGH); //Turn Buzzer On
+
+          //5 quick beeps with long break in between than AT Temp (to be different) followed by 3 second pause to let temp drop
+          digitalWrite(6, HIGH); //Turn Buzzer - ON
+          delay(100);
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
+          delay(200);
+          digitalWrite(6, HIGH); //Turn Buzzer - ON
+          delay(100);
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
+          delay(200);
+          digitalWrite(6, HIGH); //Turn Buzzer - ON
+          delay(100);
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
+          delay(200);
+          digitalWrite(6, HIGH); //Turn Buzzer - ON
+          delay(100);
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
+          delay(200);
+          digitalWrite(6, HIGH); //Turn Buzzer - ON
+          delay(100);
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
+          delay(3000);
         }
         else {
-          digitalWrite(6, LOW); //Turn Buzzer On
+          digitalWrite(6, LOW); //Turn Buzzer - OFF
         }
 
       }
       else {
         //Turn Warning and buzzer off
-        digitalWrite(8, LOW); //Turns off LED
-        digitalWrite(6, LOW); //Turn Buzzer On
+        digitalWrite(8, LOW); //Turn off LED
+        digitalWrite(6, LOW); //Turn Buzzer - OFF
       }
 
       break;
