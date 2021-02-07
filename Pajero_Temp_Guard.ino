@@ -131,7 +131,7 @@ void setup()
   delay(2000);
   display.clearDisplay();
   display.setCursor(0, 10);            // Start at top-left corner
-  display.println(F("   V1.2"));
+  display.println(F("   V1.3"));
   display.display();
 
   delay(1000);
@@ -392,8 +392,8 @@ void showData(byte pid, int value)
 {
   switch (pid) {
     case PID_COOLANT_TEMP:
-      display.fillRect(7, 8, 58, 26, BLACK);
-      display.setCursor(7, 16);
+      display.fillRect(7, 8, 56, 26, BLACK);
+      display.setCursor(8, 16);
       display.setTextSize(2);
       display.print(value);
       display.println('C');
@@ -450,22 +450,22 @@ void initScreen()
 {
   display.clearDisplay();
   display.setTextSize(2);
-  display.setCursor(64, 0);
+  display.setCursor(59, 0);
   display.println(F("|"));
-  display.setCursor(64, 16);
+  display.setCursor(59, 16);
   display.println(F("|"));
   display.setCursor(0, 0);
   display.setTextSize(1);
-  display.println(F("  ENG TMP"));
-  display.setCursor(65, 0);
+  display.println(F(" ENG TMP"));
+  display.setCursor(62, 0);
   display.setTextSize(1);
-  display.println(F("    AT TMP"));
+  display.println(F("   AT TMP"));
   display.setTextSize(2);
   //Engine Temp Display
-  display.setCursor(7, 16);
-  display.println(F("---"));
+  display.setCursor(8, 16);
+  display.println(F("----"));
   //Trans Temp Display
   display.setCursor(80, 16);
-  display.println(F("---"));
+  display.println(F("----"));
 
 }
