@@ -28,7 +28,7 @@ To get this up and running you will need....
   
 ## 3D Designs
   
-TBA - will be uploaded once finished.
+Available on thingiverse - https://www.thingiverse.com/thing:4753375
   
 <BR>
   
